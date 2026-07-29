@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Mapas de RPG</title>
+  <link rel="stylesheet" href="lucca.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>Mesa de Mapas RPG</h1>
+        <p>Monte encontros, posicione tokens e jogue direto no navegador.</p>
+      </div>
+
+      <div class="topbar-actions">
+        <label class="file-button" for="mapUpload">Mapa</label>
+        <input id="mapUpload" class="sr-only" type="file" accept="image/*">
+
+        <label class="file-button secondary" for="tokenUpload">Tokens</label>
+        <input id="tokenUpload" class="sr-only" type="file" accept="image/*" multiple>
+
+        <button id="clearTokens" class="ghost-button" type="button">Limpar</button>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="token-panel" aria-label="Painel de tokens">
+        <div class="panel-heading">
+          <h2>Tokens</h2>
+          <span id="tokenCount">0</span>
+        </div>
+        <div id="tokenTray" class="token-tray" aria-live="polite"></div>
+      </aside>
+
+      <section class="map-stage-wrap" aria-label="Mapa interativo">
+        <div id="mapStage" class="map-stage">
+          <div id="emptyState" class="empty-state">
+            <strong>Carregue uma imagem de mapa</strong>
+            <span>Depois adicione tokens e arraste-os com mouse ou toque.</span>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="skate.js"></script>
+</body>
+</html>
