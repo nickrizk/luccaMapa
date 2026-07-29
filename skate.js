@@ -1,3 +1,4 @@
+<!doctype html>
 const mapUpload = document.querySelector("#mapUpload");
 const tokenUpload = document.querySelector("#tokenUpload");
 const clearTokens = document.querySelector("#clearTokens");
