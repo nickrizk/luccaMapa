@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Mapas de RPG</title>
+  <link rel="stylesheet" href="lucca.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>Mesa de Mapas RPG</h1>
+        <p>Monte encontros e prepare arquivos de campanha direto no navegador.</p>
+      </div>
+
+      <div class="topbar-actions">
+        <label class="file-button" for="mapUpload">Mapa</label>
+        <input id="mapUpload" class="sr-only" type="file" accept="image/*">
+
+        <label class="file-button secondary" for="tokenUpload">Tokens</label>
+        <input id="tokenUpload" class="sr-only" type="file" accept="image/*" multiple>
+
+        <button id="clearTokens" class="ghost-button" type="button">Limpar</button>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="token-panel" aria-label="Painel de tokens">
+        <div class="panel-heading">
+          <h2>Tokens</h2>
+          <span id="tokenCount">0</span>
+        </div>
+        <div id="tokenTray" class="token-tray" aria-live="polite"></div>
+      </aside>
+
+      <section class="map-stage-wrap" aria-label="Mapa interativo">
+        <div id="mapStage" class="map-stage">
+          <div id="emptyState" class="empty-state">
+            <strong>Seu mapa começa aqui</strong>
+            <span>Carregue uma imagem para preparar o encontro.</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="analysis-panel" aria-label="Análise e filtro de arquivos">
+        <div class="analysis-heading">
+          <div>
+            <p class="eyebrow">Pré-processamento</p>
+            <h2>Filtro de arquivos</h2>
+          </div>
+          <span id="analysisFileCount" class="file-count">0</span>
+        </div>
+
+        <div class="analysis-content">
+          <label class="analysis-upload" for="analysisFileUpload">
+            <span>Selecionar arquivos</span>
+            <small>Texto, código, JSON, CSV e Markdown</small>
+          </label>
+          <input id="analysisFileUpload" class="sr-only" type="file" multiple
+            accept=".txt,.md,.js,.mjs,.cjs,.ts,.jsx,.tsx,.html,.css,.json,.py,.java,.c,.cpp,.h,.cs,.go,.rs,.php,.rb,.sh,.xml,.yaml,.yml,.sql,.csv,text/*">
+
+          <div class="field-group">
+            <div class="field-label-row">
+              <label for="excludeTokens">Excluir tokens ou padrões</label>
+              <button id="clearExclusions" class="text-button" type="button">Limpar</button>
+            </div>
+            <textarea id="excludeTokens" rows="4"
+              placeholder="Um item por linha ou separado por vírgula&#10;Ex.: TODO, console.log, /debug\w*/gi"></textarea>
+            <p class="field-hint">Texto simples é literal. Use <code>/expressão/flags</code> para padrões.</p>
+          </div>
+
+          <div id="exclusionChips" class="exclusion-chips" aria-live="polite"></div>
+
+          <label class="check-row">
+            <input id="caseInsensitive" type="checkbox" checked>
+            <span>Ignorar maiúsculas e minúsculas</span>
+          </label>
+
+          <div class="token-summary" aria-live="polite">
+            <div>
+              <span>Original</span>
+              <strong id="originalTokenTotal">0</strong>
+            </div>
+            <div>
+              <span>Após filtro</span>
+              <strong id="filteredTokenTotal">0</strong>
+            </div>
+            <div class="saved-card">
+              <span>Economizados</span>
+              <strong id="savedTokenTotal">0</strong>
+            </div>
+          </div>
+          <p class="field-hint token-estimate">Contagem estimada localmente; nenhum arquivo é enviado para a internet.</p>
+
+          <div id="analysisEmpty" class="analysis-empty">
+            <strong>Nenhum arquivo analisado</strong>
+            <span>Selecione arquivos para calcular e filtrar o contexto.</span>
+          </div>
+
+          <div id="analysisResults" class="analysis-results" hidden>
+            <label for="activeAnalysisFile" class="result-label">Arquivo</label>
+            <select id="activeAnalysisFile"></select>
+
+            <div class="file-stats">
+              <span id="activeFileStats">0 → 0 tokens</span>
+              <span id="activeFileSavings" class="saving-badge">0 economizados</span>
+            </div>
+
+            <label for="filteredPreview" class="result-label">Contexto filtrado</label>
+            <textarea id="filteredPreview" class="filtered-preview" rows="10" readonly></textarea>
+
+            <div class="analysis-actions">
+              <button id="copyFiltered" class="ghost-button compact" type="button">Copiar</button>
+              <button id="downloadFiltered" class="file-button compact" type="button">Baixar filtrado</button>
+            </div>
+            <p id="analysisStatus" class="analysis-status" role="status"></p>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="skate.js"></script>
+</body>
+</html>
